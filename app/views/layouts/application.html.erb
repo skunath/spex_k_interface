@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>XData Kiva Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  
+  <%= csrf_meta_tags %>
+
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+ /* Sticky footer styles
+      -------------------------------------------------- */
+
+      html,
+      body {
+        height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      #wrap > .container-fluid {
+        padding-top: 60px;
+      }
+      .container-fluid .credit {
+        margin: 20px 0;
+      }
+
+      code {
+        font-size: 80%;
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <!-- Part 1: Wrap all page content here -->
+    <div id="wrap">
+
+      <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "XData Kiva Interface", {:action => "list_knowledge_bases", :controller => "knowledge_base"}, {:class => "brand"}%>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+           	  <% if session["default_kb"] %>
+           	  Default KB: <%= link_to session["default_kb"], :action => "list_knowledge_bases", :controller => "knowledge_base" %> @ <%= session["default_server_name"]%>
+           	  <% end %>
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+              <li><%= link_to "Home", :action => "list_knowledge_bases", :controller => "knowledge_base" %></li>
+              <!--<li><%= link_to "Knowledge Objects", :action => "index", :controller => "knowledge_objects" %></a></li>
+              <li><a href="#contact">Name Search</a></li>
+              <li><a href="#contact">Concept Vetting</a></li>
+              <li><a href="#contact">Turtle</a></li>-->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+      <!-- Begin page content -->
+      <div class="container-fluid">
+        <div class="row-fluid">
+        <div class="span2 bs-docs-sidebar">
+          
+            <ul class="well nav nav-list bs-docs-sidenav affix">
+              <li class="nav-header">Partner</li>
+              <li><%= link_to "List Partners", :action => "list_partners", :controller => "partner"%></li>
+              
+              <li class="nav-header">Lenders</li>
+              <li><%= link_to "List Concepts", :action => "list_concepts", :controller => "concept"%></li>
+              <li><%= link_to "Search for Concepts", :action => "search_for_concepts", :controller => "concept"%></li>
+
+
+              <li class="nav-header">Loans</li>
+              <li><%= link_to "List Concepts", :action => "list_concepts", :controller => "concept"%></li>
+              <li><%= link_to "Search for Concepts", :action => "search_for_concepts", :controller => "concept"%></li>
+<!--
+              <li><%= link_to "Categories", :action => "categories", :controller => "concepts"%></li>
+              <li><%= link_to "Flagged", :action => "flagged", :controller => "concepts"%></li>
+              <li><a href="#">Flagged and Vetted</a></li>
+              <li><a href="#">Name Search Comparison</a></li>
+             -->
+              <li class="nav-header">Messages</li>
+              <li><%= link_to "Search", :action => "search_message", :controller => "message"%></li>
+              <li><%= link_to "Cached Messages", :action => "cached_messages", :controller => "message"%></li>
+              
+         <!--      <li class="nav-header">Relationships</li>
+              <li><%= link_to "Search", :action => "search_message", :controller => "message"%></li>
+-->             
+              <li class="nav-header">Flagged Items</li>
+              <li><%= link_to "List", :action => "list_flagged_items", :controller => "flagged_item"%></li>
+
+              <li class="nav-header">Tagging Bundles</li>
+              <li><%= link_to "List Available Bundles", :action => "list_bundles", :controller => "tagging_bundle"%></li>
+			  <li><%= link_to "Create Bundle", :action => "create_bundle", :controller => "tagging_bundle"%></li>
+
+              
+              <!-- 
+              <li class="nav-header">Synthesys Server</li>
+              <li><%= link_to "Knowledge Bases", :action => "knowledge_bases", :controller => "synthesys_server"%></li>
+              <li><a href="#">Concept Search</a></li>
+              <li><a href="#">Message Search</a></li>
+              <li><a href="#">Relationships</a></li>
+              -->
+              <li class="nav-header">Knowledge Objects</li>
+              <li><%= link_to "List KO Kinds", :action => "list_knowledge_object_kinds", :controller => "knowledge_objects"%></li>
+              <li><%= link_to "KO Structures", :action => "list_knowledge_object_structures", :controller => "knowledge_objects"%></li>
+              <li><%= link_to "Profiles", :action => "list_profiles", :controller => "knowledge_objects"%></li>
+              <li><a href="#">Vetted Profiles</a></li>
+              <li><a href="#">Profile Construction Rules</a></li>
+              
+            </ul>
+         
+        </div><!--/span-->
+        <!--
+        <div class="span1">
+        </div>-->
+        <div class="span10">
+      <%= yield%>
+        </div><!--/span-->
+      </div><!--/row-->
+      </div>
+
+      <div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container-fluid">
+        <p class="muted credit">XData Kiva Interface</p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
+
+

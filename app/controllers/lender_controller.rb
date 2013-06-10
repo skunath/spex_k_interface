@@ -1,0 +1,2 @@
+class LenderController < ApplicationController
+end
