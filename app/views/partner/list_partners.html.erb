@@ -230,47 +230,48 @@
         .domain([min, max])
         .range([10, 45]);
 
-    bombs.each(function(val, idx) {
-        bombs.at(idx).set('radius', scale(val.get('yeild')));
-    });
+   // bombs.each(function(val, idx) {
+   //     bombs.at(idx).set('radius', scale(val.get('yeild')));
+   // });
 
    $("#container1").datamap({
         scope: 'world',
-        bubbles: bombs.toJSON(),
-        bubble_config: {
-            popupTemplate: _.template([
+        //bubbles: bombs.toJSON(),
+       // bubble_config: {
+        /*    popupTemplate: _.template([
                 '<div class="hoverinfo"><strong>test<%#= data.name %></strong>',
                 '<br/>Payload: <%#= data.yeild %> kilotons',
                 '<br/>Country: <%#= data.country %>',
                 '<br/>Date: <%#= data.date %>',
                 '</div>'].join(''))
         },
+        */
         geography_config: {
-            popupOnHover: false,
-            highlightOnHover: false
+            popupOnHover: true,
+            highlightOnHover: true
         },
         fills: {
-            'USA': '#1f77b4',
-            'RUS': '#9467bd',
-            'PRK': '#ff7f0e',
-            'PRC': '#2ca02c',
-            'IND': '#e377c2',
-            'GBR': '#8c564b',
-            'FRA': '#d62728',
-            'PAK': '#7f7f7f',
+        	<% for country in @partner_country_count %>
+            	'<%= country.name %>':'red',
+            
+            <% end %>
             defaultFill: '#EDDC4E'
         },
         data: {
-            'RUS': {fillKey: 'RUS'},
-            'PRK': {fillKey: 'PRK'},
-            'CHN': {fillKey: 'PRC'},
-            'IND': {fillKey: 'IND'},
-            'GBR': {fillKey: 'GBR'},
-            'FRA': {fillKey: 'FRA'},
-            'PAK': {fillKey: 'PAK'},
-            'USA': {fillKey: 'USA'}
+        	<% for country in @partner_country_count %>
+            	'<%= country.name %>': {fillKey: '<%= country.name %>'},
+            
+            <% end %>
         }
     });
+    
+    
+    $("#container1").on('map-click', function(event, data) {
+   // data.geography is the geoJSON
+  alert( data.geography.id ); //alerts "CA" if you clicked California
+  //  data.data is the data you passed in to render the map, so in the ch
+  alert( data.data.electoralVotes ); //alerts 32 if you clicked California
+});
 	</script>
 	
          <script type="text/javascript">
