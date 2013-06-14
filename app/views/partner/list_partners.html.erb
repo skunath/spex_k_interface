@@ -310,7 +310,7 @@
 <tbody>
 	<% for partner in @partners%>
 	<tr>
-		<td><%= partner.name%></td>
+		<td><%= link_to partner.name, :action => "view_partner", :controller => "partner", :id => partner.id%></td>
 		<td><%= partner.list_countries%></td>
 		
 <td><%= partner.status %></td>
